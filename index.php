@@ -19,7 +19,7 @@
     </div>
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
-        <a href="#" class="btn btn-primary btn-lg btn-block" role="button">Visualizar Total Vendido</a>
+        <a href="total-vendido.php" class="btn btn-primary btn-lg btn-block" role="button">Visualizar Total Vendido</a>
       </div>
     </div>
   </div>

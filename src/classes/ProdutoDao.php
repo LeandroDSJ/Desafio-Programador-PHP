@@ -1,4 +1,6 @@
 <?php
+include_once 'Connection.php';
+
 class ProdutoDao {
   private $produto;
 

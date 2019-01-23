@@ -47,10 +47,10 @@
           <label>Preço</label>
           <input type="number" name="preco" class="form-control" min="0" step="0.01" required>
         </div>
-        <?php if ($success != null) : ?>
+        <?php if (isset($success) && $success != null) : ?>
           <div class="alert alert-success" role="alert"><?php echo $success ?></div>
         <?php endif ?>
-        <?php if ($error != null) : ?>
+        <?php if (isset($error) && $error != null) : ?>
           <div class="alert alert-danger" role="alert"><?php echo $error ?></div>
         <?php endif ?>
         <button type="submit" class="btn btn-default">Salvar</button>

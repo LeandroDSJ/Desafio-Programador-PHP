@@ -4,7 +4,7 @@ class Connection {
   CONST HOST = '127.0.0.1';
   CONST DBNAME = 'sis_vendas';
   CONST USER = 'root';
-  CONST PASSWORD = '';
+  CONST PASSWORD = 'vertrigo';
 
   private $con;
 

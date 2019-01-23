@@ -1,4 +1,6 @@
 <?php
+include_once 'Connection.php';
+
 class DocumentoDao {
   private $documento;
 
@@ -39,8 +41,8 @@ class DocumentoDao {
     $con = Connection::getConnection();
     try {
         $stmt = $con->prepare(
-          "SELECT SUM(produto.PRECO) FROM produto
-          WHERE produto.CODIGO in (SELECT documento_produto.PRODUTO_CODIGO FROM documento_produto dp
+          "SELECT SUM(produto.PRECO) as total FROM produto
+          WHERE produto.CODIGO in (SELECT documento_produto.PRODUTO_CODIGO FROM documento_produto
                                     WHERE documento_produto.DOCUMENTO_NUMERO = ?)
           ");
         $stmt->bindParam(1, $numero);
@@ -61,13 +63,15 @@ class DocumentoDao {
   public function update() {
       $con = Connection::getConnection();
     try {
-        $stmt = $con->prepare("UPDATE INTO documento (TOTAL, CONFIRMADO) VALUES (?, ?)");
+        $stmt = $con->prepare("UPDATE documento SET TOTAL = ?, CONFIRMADO = ? WHERE NUMERO = ?");
 
         $total = $this->documento->getTotal();
         $confirmado = $this->documento->getConfirmado();
+        $numero = $this->documento->getNumero();
 
         $stmt->bindParam(1, $total);
         $stmt->bindParam(2, $confirmado);
+        $stmt->bindParam(3, $numero);
 
         if ($stmt->execute()) {
             if ($stmt->rowCount() > 0) {
@@ -112,7 +116,7 @@ class DocumentoDao {
   Public static function calcTotalVendido() {
     $con = Connection::getConnection();
     try {
-        $stmt = $con->query("SELECT SUM(TOTAL)as total FROM documento WHERE CONFIRMADO = 1");
+        $stmt = $con->query("SELECT SUM(TOTAL) as total FROM documento WHERE CONFIRMADO = 1");
         while ($rs = $stmt->fetch(PDO::FETCH_ASSOC)) {
             return $rs['total'];
         }
